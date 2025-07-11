@@ -8,9 +8,9 @@ import { z } from "zod";
 // Validation schema
 const registrationSchema = z
   .object({
-    fullName: z.string().min(2, "Full name must be at least 2 characters"),
+    fullName: z.string().min(3, "Full name must be at least 2 characters"),
     email: z.string().email("Please enter a valid email address"),
-    phone: z.string().min(10, "Phone number must be at least 10 digits"),
+    username: z.string().min(3, "Username must be at least 3 characters"),
     password: z.string().min(6, "Password must be at least 6 characters"),
     confirmPassword: z.string().min(6, "Please confirm your password"),
   })
@@ -80,15 +80,15 @@ const RegistrationForm = ({ onSubmit, onSignInClick }) => {
           <div>
             <input
               type="tel"
-              placeholder="Phone"
-              {...register("phone")}
+              placeholder="Username"
+              {...register("username")}
               className={`w-full px-4 py-3 border-2 rounded-xl bg-gray-50 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${
-                errors.phone ? "border-red-500" : "border-blue-300"
+                errors.usernamr ? "border-red-500" : "border-blue-300"
               }`}
             />
-            {errors.phone && (
+            {errors.username && (
               <p className="text-red-500 text-sm mt-1">
-                {errors.phone.message}
+                {errors.username.message}
               </p>
             )}
           </div>
