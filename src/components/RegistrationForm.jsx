@@ -4,33 +4,43 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // Validation schema
-const registrationSchema = z
-  .object({
-    fullName: z.string().min(2, "Full name must be at least 2 characters"),
-    email: z.string().email("Please enter a valid email address"),
-    phone: z.string().min(10, "Phone number must be at least 10 digits"),
-    password: z.string().min(6, "Password must be at least 6 characters"),
-    confirmPassword: z.string().min(6, "Please confirm your password"),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
-    path: ["confirmPassword"],
-  });
+const registrationSchema = z.object({
+  full_name: z.string().min(2, "Full name must be at least 2 characters"),
+  username: z.string().min(2, "Username must be at least 2 characters"),
+  email: z.string().email("Please enter a valid email address"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+});
 
 const RegistrationForm = ({ onSubmit, onSignInClick }) => {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    reset,
   } = useForm({
     resolver: zodResolver(registrationSchema),
   });
 
   const handleFormSubmit = async (data) => {
-    if (onSubmit) {
-      await onSubmit(data);
+    try {
+      const response = await fetch("http://localhost:8080/api/v1/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Registration failed");
+      }
+      toast.success("Registration successful! Please login.");
+      reset();
+      if (onSubmit) await onSubmit(data);
+    } catch (err) {
+      toast.error(err.message || "Registration failed");
     }
   };
 
@@ -47,14 +57,31 @@ const RegistrationForm = ({ onSubmit, onSignInClick }) => {
             <input
               type="text"
               placeholder="Full Name"
-              {...register("fullName")}
+              {...register("full_name")}
               className={`w-full px-4 py-3 border-2 rounded-xl bg-gray-50 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${
-                errors.fullName ? "border-red-500" : "border-blue-300"
+                errors.full_name ? "border-red-500" : "border-blue-300"
               }`}
             />
-            {errors.fullName && (
+            {errors.full_name && (
               <p className="text-red-500 text-sm mt-1">
-                {errors.fullName.message}
+                {errors.full_name.message}
+              </p>
+            )}
+          </div>
+
+          {/* Username Input */}
+          <div>
+            <input
+              type="text"
+              placeholder="Username"
+              {...register("username")}
+              className={`w-full px-4 py-3 border-2 rounded-xl bg-gray-50 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${
+                errors.username ? "border-red-500" : "border-blue-300"
+              }`}
+            />
+            {errors.username && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.username.message}
               </p>
             )}
           </div>
@@ -76,23 +103,6 @@ const RegistrationForm = ({ onSubmit, onSignInClick }) => {
             )}
           </div>
 
-          {/* Phone Input */}
-          <div>
-            <input
-              type="tel"
-              placeholder="Phone"
-              {...register("phone")}
-              className={`w-full px-4 py-3 border-2 rounded-xl bg-gray-50 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${
-                errors.phone ? "border-red-500" : "border-blue-300"
-              }`}
-            />
-            {errors.phone && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.phone.message}
-              </p>
-            )}
-          </div>
-
           {/* Password Input */}
           <div>
             <input
@@ -106,21 +116,6 @@ const RegistrationForm = ({ onSubmit, onSignInClick }) => {
             {errors.password && (
               <p className="text-red-500 text-sm mt-1">
                 {errors.password.message}
-              </p>
-            )}
-          </div>
-          <div>
-            <input
-              type="password"
-              placeholder="Confirm Password"
-              {...register("confirmPassword")}
-              className={`w-full px-4 py-3 border-2 rounded-xl bg-gray-50 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${
-                errors.confirmPassword ? "border-red-500" : "border-blue-300"
-              }`}
-            />
-            {errors.confirmPassword && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.confirmPassword.message}
               </p>
             )}
           </div>

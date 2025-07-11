@@ -4,6 +4,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { toast } from "react-toastify";
 
 // Validation schema
 const loginSchema = z.object({
@@ -21,8 +22,22 @@ const LoginForm = ({ onSubmit }) => {
   });
 
   const handleFormSubmit = async (data) => {
-    if (onSubmit) {
-      await onSubmit(data);
+    try {
+      const response = await fetch("http://localhost:8080/api/v1/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.error || "Login failed");
+      }
+      // Store JWT token in localStorage
+      localStorage.setItem("token", result.token);
+      toast.success("Login successful!");
+      if (onSubmit) await onSubmit(result);
+    } catch (err) {
+      toast.error(err.message || "Login failed");
     }
   };
 

@@ -6,17 +6,8 @@ export default function LoginPage() {
   const router = useRouter();
 
   const handleLogin = async (data) => {
-    console.log("Login data:", data);
-
-    // Example: Make API call
-    // const response = await fetch('/api/login', {
-    //   method: 'POST',
-    //   body: JSON.stringify(data)
-    // });
-
-    // if (response.ok) {
-    //   router.push('/dashboard');
-    // }
+    // Redirect to chat after successful login
+    router.push("/chat");
   };
 
   return <LoginForm onSubmit={handleLogin} />;

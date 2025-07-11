@@ -151,7 +151,7 @@ const Footer = () => {
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-center">
           <p className="text-gray-400">
-            © 2025 ChatApp. All rights reserved. Built with ❤️ for better
+            © 2025 RustyChat. All rights reserved. Built with ❤️ for better
             communication.
           </p>
         </div>
