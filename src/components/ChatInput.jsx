@@ -9,7 +9,7 @@ const ChatInput = ({ inputValue, setInputValue, onSend }) => (
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           placeholder="Type your message..."
-          className="w-full p-4 pr-12 bg-white border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none transition-colors"
+          className="w-full p-4 pr-12 bg-white border-2 text-gray-500 placeholder-gray-500 border-gray-200 rounded-xl focus:border-purple-500 focus:outline-none transition-colors"
         />
       </div>
       <button

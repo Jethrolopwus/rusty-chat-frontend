@@ -40,7 +40,7 @@ const LoginForm = ({ onSubmit }) => {
               type="text"
               placeholder="Username"
               {...register("username")}
-              className={`w-full px-6 py-4 border-2 rounded-full bg-gray-50 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${
+              className={`w-full px-6 py-4 border-2 rounded-full text-gray-500 bg-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${
                 errors.username ? "border-red-500" : "border-blue-300"
               }`}
             />
@@ -57,7 +57,7 @@ const LoginForm = ({ onSubmit }) => {
               type="password"
               placeholder="Password"
               {...register("password")}
-              className={`w-full px-6 py-4 border-2 rounded-full bg-gray-50 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${
+              className={`w-full px-6 py-4 border-2 rounded-full text-gray-500 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${
                 errors.password ? "border-red-500" : "border-blue-300"
               }`}
             />

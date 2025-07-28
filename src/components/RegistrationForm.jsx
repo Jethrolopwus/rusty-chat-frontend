@@ -1,11 +1,9 @@
 "use client";
-
 import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
-// Validation schema
 const registrationSchema = z
   .object({
     fullName: z.string().min(3, "Full name must be at least 2 characters"),
@@ -48,7 +46,7 @@ const RegistrationForm = ({ onSubmit, onSignInClick }) => {
               type="text"
               placeholder="Full Name"
               {...register("fullName")}
-              className={`w-full px-4 py-3 border-2 rounded-xl bg-gray-50 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${
+              className={`w-full px-4 py-3 border-2 rounded-xl text-gray-500  bg-gray-50 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${
                 errors.fullName ? "border-red-500" : "border-blue-300"
               }`}
             />
@@ -65,7 +63,7 @@ const RegistrationForm = ({ onSubmit, onSignInClick }) => {
               type="email"
               placeholder="E-mail"
               {...register("email")}
-              className={`w-full px-4 py-3 border-2 rounded-xl bg-gray-50 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${
+              className={`w-full px-4 py-3 border-2 rounded-xl bg-gray-50 text-gray-500  placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${
                 errors.email ? "border-red-500" : "border-blue-300"
               }`}
             />
@@ -76,14 +74,14 @@ const RegistrationForm = ({ onSubmit, onSignInClick }) => {
             )}
           </div>
 
-          {/* Phone Input */}
+          {/* Username Input - Fixed typo here */}
           <div>
             <input
               type="tel"
               placeholder="Username"
               {...register("username")}
-              className={`w-full px-4 py-3 border-2 rounded-xl bg-gray-50 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${
-                errors.usernamr ? "border-red-500" : "border-blue-300"
+              className={`w-full px-4 py-3 border-2 rounded-xl text-gray-500 bg-gray-50 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${
+                errors.username ? "border-red-500" : "border-blue-300"
               }`}
             />
             {errors.username && (
@@ -99,7 +97,7 @@ const RegistrationForm = ({ onSubmit, onSignInClick }) => {
               type="password"
               placeholder="Password"
               {...register("password")}
-              className={`w-full px-4 py-3 border-2 rounded-xl bg-gray-50 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${
+              className={`w-full px-4 py-3 border-2 rounded-xl bg-gray-50 text-gray-500 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${
                 errors.password ? "border-red-500" : "border-blue-300"
               }`}
             />
@@ -109,12 +107,14 @@ const RegistrationForm = ({ onSubmit, onSignInClick }) => {
               </p>
             )}
           </div>
+
+          {/* Confirm Password Input */}
           <div>
             <input
               type="password"
               placeholder="Confirm Password"
               {...register("confirmPassword")}
-              className={`w-full px-4 py-3 border-2 rounded-xl bg-gray-50 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${
+              className={`w-full px-4 py-3 border-2 rounded-xl bg-gray-50 text-gray-500 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${
                 errors.confirmPassword ? "border-red-500" : "border-blue-300"
               }`}
             />

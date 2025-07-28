@@ -17,19 +17,21 @@ const AddRoomModal = ({ open, onClose, onCreate }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30">
       <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-md">
-        <h2 className="text-xl font-bold mb-4">Create New Room</h2>
+        <h2 className="text-xl font-bold mb-4 text-gray-500 text-center">
+          Create New Room
+        </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium mb-1">Room Name</label>
             <input
               type="text"
-              className="w-full border rounded-lg p-2"
+              className="w-full border text-gray-500 placeholder-gray-500 rounded-lg p-2"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
             />
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center  text-gray-500">
             <input
               id="private"
               type="checkbox"
@@ -37,13 +39,15 @@ const AddRoomModal = ({ open, onClose, onCreate }) => {
               onChange={() => setIsPrivate((v) => !v)}
               className="mr-2"
             />
-            <label htmlFor="private" className="text-sm">Private Room</label>
+            <label htmlFor="private" className="text-sm">
+              Private Room
+            </label>
           </div>
           <div className="flex justify-end space-x-2">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300"
+              className="px-4 py-2 rounded-lg  text-gray-500 bg-gray-200 hover:bg-gray-300"
             >
               Cancel
             </button>
